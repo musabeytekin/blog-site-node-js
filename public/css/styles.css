@@ -8,9 +8,17 @@
     border: 0;
     border-radius: 0;
     margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 4px;
 }
+.nav-item:not(:last-child){
+    margin-right: 2rem;
+}
+.navbar-brand {
+    opacity: .7;
+}
+
 .navbar-nav  li a:hover {
     color: #1abc9c !important;
 }
