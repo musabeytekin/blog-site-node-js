@@ -34,7 +34,8 @@ app.get("/compose", (req, res) => {
 })
 
 app.post("/compose", (req, res) => {
-  let text = req.body.textCompose;
+  let post = req.body.post;
+  let title = req.body.title;
   console.log(text);
 })
 
