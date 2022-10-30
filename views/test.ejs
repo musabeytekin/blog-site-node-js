@@ -1,0 +1,10 @@
+<% function titleOf(post){  %>
+    <% const {title} = post; %>
+    <% return {title}.title; %>
+    <%}%>
+
+    <% const titles = posts.map(titleOf);%>
+
+    <%for (title of titles){%>
+        <%console.log(title); %>
+        <%} %>
