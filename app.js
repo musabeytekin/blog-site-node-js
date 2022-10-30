@@ -1,7 +1,7 @@
- 
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require("lodash");
 
 const posts = [];
 
@@ -38,19 +38,15 @@ app.get("/compose", (req, res) => {
 app.post("/compose", (req, res) => {
   const post = {title: req.body.postTitle, content: req.body.postText};
   posts.push(post);
-  // const titles = posts.map(titleOf);
-  // for (title of titles) {
-  //   console.log(title);
-  // }
   res.redirect("/");
 })
 
-
-function titleOf(post){
-  const {title} = post;
-  return {title}.title;
-}
-
+app.get("/posts/:title", (req, res) => {
+  posts.forEach(post => {
+    if (_.kebabCase(post.title) === _.kebabCase(req.params.title))
+      res.render("post", {post: post});
+  })
+})
 
 
 

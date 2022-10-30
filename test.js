@@ -1,23 +1,6 @@
-post1 = {title: "title 1", post: "post 1"};
-post2 = {title: "title 2", post: "post 2"};
+const _ = require("lodash");
 
-posts = [];
+let text = "hello";
 
-posts.push(post1);
-posts.push(post2);
-
-// console.log(posts);
-
-function titleOf(post){
-    const {title} = post;
-    return {title}.title;
-}
-
-const titles = posts.map(titleOf);
-
-// console.log(titles);
-
-posts.forEach(element => {
-    console.log(element.title);
-});
+console.log(text.substring(0,2));
 
