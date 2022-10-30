@@ -26,6 +26,13 @@
     color: #1abc9c !important;
 }
 
+.alert {
+    position: absolute;
+    letter-spacing: 0;
+    top:4.5rem;
+    right: 0;
+}
+
 .footer-padding {
 	padding-bottom: 60px;
 }

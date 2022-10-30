@@ -15,28 +15,28 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.static("views"));
 
 app.get("/", (req, res) => {
-  res.render("home", {paragraf: homeStartingContent, posts: posts});
+  res.render("home", { paragraf: homeStartingContent, posts: posts, notFoundAlert: false });
 })
 
 app.get("/about", (req, res) => {
-  res.render("about", {paragraf: aboutContent});
+  res.render("about", { paragraf: aboutContent, notFoundAlert: false });
 })
 
 app.get("/contact", (req, res) => {
-  res.render("contact", {paragraf: contactContent});
+  res.render("contact", { paragraf: contactContent, notFoundAlert: false });
 })
 
 app.get("/compose", (req, res) => {
-  res.render("compose");
+  res.render("compose", { notFoundAlert: false });
 })
 
 app.post("/compose", (req, res) => {
-  const post = {title: req.body.postTitle, content: req.body.postText};
+  const post = { title: req.body.postTitle, content: req.body.postText };
   posts.push(post);
   res.redirect("/");
 })
@@ -44,24 +44,35 @@ app.post("/compose", (req, res) => {
 app.get("/posts/:title", (req, res) => {
   posts.forEach(post => {
     if (_.kebabCase(post.title) === _.kebabCase(req.params.title))
-      res.render("post", {post: post});
+      res.render("post", { post: post, notFoundAlert: false });
   })
 })
 
+app.post("/search", (req, res) => {
+  postContent = getPost(req.body.searchText);
 
+  if (postContent.status) {
+    res.render("post", { post: getPost(req.body.searchText).post, notFoundAlert: false })
+  } else {
+    res.render("home", { paragraf: homeStartingContent, posts: posts, notFoundAlert: true });
+  }
 
+})
 
-
-
-
-
-
-
-
-
-
-
-app.listen(3000, function() {
+const getPost = (title) => {
+  let status = false;
+  let post = {};
+  posts.forEach(_post => {
+    if (_.kebabCase(_post.title) == _.kebabCase(title)) {
+      status=true;
+      post = _post;
+    }
+  });
+  return {status: status, post: post}
+}
+app.listen(3000, () => {
   console.log("Server started on port 3000");
 });
+
+
 
